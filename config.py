@@ -3,9 +3,10 @@
 import sys
 project = "wikipedia"
 language = "es"
+site	 = project+":"+language
 
-username = "Username"
-password = "Password"
+username = "Chabacano"
+password = ""
 
 useragent = "chugle v0.1"
 
@@ -13,3 +14,5 @@ channel = "#es.wikipedia"
 
 transliterate = True
 console_encoding = sys.stdout.encoding
+
+ring_bell = True
