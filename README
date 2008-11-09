@@ -1,0 +1,18 @@
+The contents of the package are:
+
+chuggel.py		:main script	
+config.py		:configuration: username, project, etc.
+deliverer.py		:deliverer is the object which delivers data to the
+			:browser
+excepts.py		:exceptions
+events.py		:event manager. Receives data from the bot and sends
+			:it to the deliverer
+layout.py		:graphical layout described in layout.ui
+layout.ui		:graphical layout
+LICENSE			:MIT License
+login.py		:login manager. From pywikipedia
+panbot.py		:irc bot
+soliddata.py		:constants
+terminal_interface.py	:terminal interface. From pywikipedia
+transliteration.py	:transliterarion hashes. From pywikipedia
+

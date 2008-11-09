@@ -1,0 +1,137 @@
+<ui version="4.0" >
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <widget class="QWidget" name="verticalLayout" >
+    <property name="geometry" >
+     <rect>
+      <x>14</x>
+      <y>9</y>
+      <width>771</width>
+      <height>531</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" >
+     <item>
+      <layout class="QHBoxLayout" >
+       <item>
+        <widget class="QPushButton" name="pushButton_revert" >
+         <property name="text" >
+          <string>Revert</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_nextdiff" >
+         <property name="text" >
+          <string>Next diff</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_block" >
+         <property name="text" >
+          <string>Block</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QWidget" native="1" name="visor" />
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuActions" >
+    <property name="title" >
+     <string>Actions</string>
+    </property>
+    <addaction name="actionNext_diff" />
+    <addaction name="actionRevert" />
+    <addaction name="actionBlock" />
+   </widget>
+   <addaction name="menuActions" />
+  </widget>
+  <widget class="QStatusBar" name="statusbar" />
+  <action name="actionRevert" >
+   <property name="text" >
+    <string>Revert</string>
+   </property>
+   <property name="shortcut" >
+    <string>R</string>
+   </property>
+  </action>
+  <action name="actionNext_diff" >
+   <property name="text" >
+    <string>Next diff</string>
+   </property>
+   <property name="shortcut" >
+    <string>Space</string>
+   </property>
+  </action>
+  <action name="actionBlock" >
+   <property name="text" >
+    <string>Block</string>
+   </property>
+   <property name="shortcut" >
+    <string>B</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>actionNext_diff</sender>
+   <signal>activated()</signal>
+   <receiver>visor</receiver>
+   <slot></slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>265</x>
+     <y>267</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_nextdiff</sender>
+   <signal>clicked()</signal>
+   <receiver>visor</receiver>
+   <slot></slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>399</x>
+     <y>52</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>399</x>
+     <y>319</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
