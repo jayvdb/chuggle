@@ -44,26 +44,28 @@ def urlEncode( query):
         l.append('wpEditToken=' + wpEditToken)
     return '&'.join(l)
 
-def input(question, password = False):
-    """Ask the user a question, return the user's answer.
-
-    Parameters:
-    * question - a unicode string that will be shown to the user. Don't add a
-                 space after the question mark/colon, this method will do this
-                 for you.
-    * password - if True, hides the user's input (for password entry).
-
-    Returns a unicode string.
-
-    """
-    input_lock.acquire()
-    try:
-        data = ui.input(question, password)
-    finally:
-        flush_output_cache()
-        input_lock.release()
-
-    return data
+def input(question, colors = None):
+    return ui.input(question, colors)
+#def input(question, password = False):
+#    """Ask the user a question, return the user's answer.
+#
+#    Parameters:
+#    * question - a unicode string that will be shown to the user. Don't add a
+#                 space after the question mark/colon, this method will do this
+#                 for you.
+#    * password - if True, hides the user's input (for password entry).
+#
+#    Returns a unicode string.
+#
+#    """
+#    input_lock.acquire()
+#    try:
+#        data = ui.input(question, password)
+#    finally:
+#        flush_output_cache()
+#        input_lock.release()
+#
+#    return data
 
 def decompress_gzip(data):
     # Use cStringIO if available
@@ -138,6 +140,7 @@ def postData(address, data,
 
 class LoginManager:
     def __init__(self, password = None, site = None):
+	self.site=config.site
 	try:
        		self.username = config.username
 	except:
@@ -213,7 +216,7 @@ class LoginManager:
         if not self.password:
             # As we don't want the password to appear on the screen, we set
             # password = True
-            self.password = input(u'Password for user %s on %s:' % (self.username, self.site), password = True)
+            self.password = input(u'Password for user %s on %s:' % (self.username, self.site))
 
         #self.password = self.password.encode(self.site.encoding())
 
