@@ -20,15 +20,17 @@ class Dv:
 		#Event manager
 		self.em=events.EventManager()
 		#bot stuff
-		self.bot=panbot.PanBot("#"+config.language+"."+config.project,self.em)
-		thread.start_new_thread(self.bot.start,())
+	    	self.bot=panbot.PanBot("#"+config.language+"."+config.project,self.em)
 		#login manager initialization
 		self.lm=login.LoginManager()
-		self.lm.login()
 
 		self.title=""
 		self.content=""
-
+	def login(self,username,password):
+	    	return self.lm.login(username,password)
+		
+	def startbot(self):
+		thread.start_new_thread(self.bot.start,())
 	def revert(self):
 	    	print "revert!"
 		revertsearch=re_revert.search(self.content)
@@ -59,8 +61,5 @@ class Dv:
 				self.visor.begin()
 				self.visor.write(self.content)
 				self.visor.end()
-	def queryExit(self):
-#		#// this slot is invoked in addition when the *last* window is going
-#		#// to be closed. We could do some final cleanup here.
-		return TRUE #// accept
+
 	
