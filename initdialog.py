@@ -80,7 +80,7 @@ class Ui_initdialog(object):
         initdialog.setWindowTitle(QtGui.QApplication.translate("initdialog", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
         self.label_language.setText(QtGui.QApplication.translate("initdialog", "Language", None, QtGui.QApplication.UnicodeUTF8))
         self.CB_language.addItem(QtGui.QApplication.translate("initdialog", "English", None, QtGui.QApplication.UnicodeUTF8))
-        self.CB_language.addItem(QtGui.QApplication.translate("initdialog", "Spanish", None, QtGui.QApplication.UnicodeUTF8))
+        self.CB_project.addItem(QtGui.QApplication.translate("initdialog", "es.wikipedia", None, QtGui.QApplication.UnicodeUTF8))
         self.label_project.setText(QtGui.QApplication.translate("initdialog", "Project", None, QtGui.QApplication.UnicodeUTF8))
         self.label_username.setText(QtGui.QApplication.translate("initdialog", "Username", None, QtGui.QApplication.UnicodeUTF8))
         self.label_password.setText(QtGui.QApplication.translate("initdialog", "Password", None, QtGui.QApplication.UnicodeUTF8))

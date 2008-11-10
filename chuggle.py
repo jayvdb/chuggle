@@ -523,16 +523,17 @@ class Mw(KParts.MainWindow):
 	QtCore.QObject.connect(self.TB_diff_revert,QtCore.SIGNAL("clicked()"),self.dv.revert)    
 
     def login(self):
-	logged = 0
 	username = self.dialog.ui.LE_username.text()
 	password = self.dialog.ui.LE_password.text()
+	self.dialog.ui.Result.setText("Logging as "+username)
 	self.dv=deliverer.Dv(self.visor)
-	logged = self.dv.login(username,password)
-	if logged:
+	if self.dv.login(username,password):
 	    self.show()
 	    self.dialog.hide()
 	    self.connect()
 	    self.dv.startbot()
+	else :
+	    self.dialog.ui.Result.setText("Login failed")
 
     def queryExit(self):
 	#// this slot is invoked in addition when the *last* window is going
