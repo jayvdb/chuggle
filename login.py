@@ -157,8 +157,8 @@ class LoginManager:
         """
         predata = {
             'action': 'login', 
-            'lgname': self.username.encode('utf-8'),
-            'lgpassword': self.password,
+            'lgname': self.username.toUtf8(),
+            'lgpassword': self.password.toUtf8(),
         }
 	address = "http://"+config.language+"."+config.project+".org/w/api.php"
         
@@ -212,15 +212,11 @@ class LoginManager:
 	#print cookies
 	return cookies
 
-    def login(self, retry = False):
-        if not self.password:
-            # As we don't want the password to appear on the screen, we set
-            # password = True
-            self.password = input(u'Password for user %s on %s:' % (self.username, self.site))
-
+    def login(self, username, password, retry = False):
         #self.password = self.password.encode(self.site.encoding())
-
-        ui.output(u"Logging in as %s\n" % (config.username))
+	self.password=password
+	self.username=username
+        ui.output(u"Logging in as %s\n" % (self.username))
         cookiedata = self.getCookie()
         if cookiedata:
             self.storecookiedata(cookiedata)

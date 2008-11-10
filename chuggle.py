@@ -16,6 +16,7 @@ from PyQt4 import *
 #Our stuff
 import config
 import deliverer
+import init
 
 class Mw(KParts.MainWindow):
     def setupUi(self):
@@ -511,20 +512,34 @@ class Mw(KParts.MainWindow):
 
     def __init__ (self, *args):
     	self.setupUi()
-	self.show()
+	self.dialog=init.initform()
+	QtCore.QObject.connect(self.dialog.ui.PB_login,QtCore.SIGNAL("clicked()"),self.login)
+	QtCore.QObject.connect(self.dialog.ui.PB_exit,QtCore.SIGNAL("clicked()"),self.queryExit)
+	self.dialog.exec_()
 
-	#deliverer stuff
-	self.dv=deliverer.Dv(self.visor)
-
+    def connect(self):
 	#connections
 	QtCore.QObject.connect(self.TB_diff_next,QtCore.SIGNAL("clicked()"),self.dv.viewDiff)
-	QtCore.QObject.connect(self.TB_diff_revert,QtCore.SIGNAL("clicked()"),self.dv.revert)
+	QtCore.QObject.connect(self.TB_diff_revert,QtCore.SIGNAL("clicked()"),self.dv.revert)    
+
+    def login(self):
+	logged = 0
+	username = self.dialog.ui.LE_username.text()
+	password = self.dialog.ui.LE_password.text()
+	self.dv=deliverer.Dv(self.visor)
+	logged = self.dv.login(username,password)
+	if logged:
+	    self.show()
+	    self.dialog.hide()
+	    self.connect()
+	    self.dv.startbot()
+
     def queryExit(self):
 	#// this slot is invoked in addition when the *last* window is going
 	#// to be closed. We could do some final cleanup here.
+	sys.exit()
 	return TRUE #// accept
 
-		
 appName     = "Chuggle"
 catalog     = ""
 programName = ki18n ("Chuggle")
@@ -551,5 +566,5 @@ TOOLBAR_OPEN = 1
 
 mainw=Mw()
 mainw.show()
-app.exec_()	
+sys.exit(app.exec_())
 
