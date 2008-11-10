@@ -41,8 +41,10 @@ class Dv:
 		response = urllib2.urlopen(urllib2.Request(revertlink, None, headers))
 
 	def viewDiff(self):
+	    	print "clicked"
 		event=self.em.get()
 		if event:
+		    	print event.type
 		    	if event.type == "edit":
 				diff=event.diff
 				print "Getting diff"
@@ -57,5 +59,8 @@ class Dv:
 				self.visor.begin()
 				self.visor.write(self.content)
 				self.visor.end()
-
+	def queryExit(self):
+#		#// this slot is invoked in addition when the *last* window is going
+#		#// to be closed. We could do some final cleanup here.
+		return TRUE #// accept
 	
