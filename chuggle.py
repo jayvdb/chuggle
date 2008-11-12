@@ -18,6 +18,10 @@ import config
 import deliverer
 import init
 import connector
+import re
+
+re_local=re.compile("href=\"/")
+re_src=re.compile("src=\"/")
 
 class Mw(KParts.MainWindow):
     def setupUi(self):
@@ -404,6 +408,7 @@ class Mw(KParts.MainWindow):
 	self.visor =KHTMLPart(self.verticalLayout_2)
 	self.visor.setObjectName("visor")
 	self.visor.begin()
+
 	url = "http://"+config.language+"."+config.project+".org"
 
 	self.visor.openUrl (KUrl(url))
@@ -515,10 +520,30 @@ class Mw(KParts.MainWindow):
 	self.dialog=init.initform(self)
 	QtCore.QObject.connect(self.dialog.ui.PB_login,QtCore.SIGNAL("clicked()"),self.login)
 	QtCore.QObject.connect(self.dialog.ui.PB_exit,QtCore.SIGNAL("clicked()"),self.queryExit)
+	QtCore.QObject.connect(self.extension, SIGNAL ('openUrlRequest (const KUrl&, const KParts::OpenUrlArguments&, const KParts::BrowserArguments&)'), self.changePage)
 	self.conn=connector.Connector()
 	self.conn.register(self.writeMsgBox,"writeMsgBox")	
 	self.conn.register(self.setNumItems,"setNumItems")	
 	self.dialog.exec_()
+    def changePage(self, url, args):
+	myurl = str(KUrl(url).prettyUrl().toUtf8())
+	if myurl.find("http://"+config.language+"."+config.project+".org/") == -1:
+	    	self.visor.openUrl(KUrl(url))
+	else:
+		headers = { 'User-Agent' : config.useragent, 
+			'Cookie': self.dv.lm.cookies() }
+		if myurl[0:8]=="file:///":
+			myurl="href=\"http://"+config.language+"."+config.project+".org/"+myurl[7:]
+		try:
+			response = urllib2.urlopen(urllib2.Request(myurl, None, headers))
+			html = response.read()
+			html=re_local.sub("href=\"http://"+config.language+"."+config.project+".org/",html)
+			html=re_src.sub("src=\"http://"+config.language+"."+config.project+".org/",html)
+			self.visor.begin()
+			self.visor.write(html)
+			self.visor.end()
+		except:
+			self.writeMsgBox("Unable to open link")
 
     def connect(self):
 	#connections
@@ -532,11 +557,11 @@ class Mw(KParts.MainWindow):
 	self.dialog.ui.Result.setText("Logging as "+username)
 	self.dv=deliverer.Dv(self.visor,self.conn)
 	if self.dv.login(username,password):
-	    self.show()
-	    self.dialog.hide()
-	    self.connect()
-	    self.dv.startbot()
-	    self.writeMsgBox("Connecting irc bot")
+		self.show()
+		self.dialog.hide()
+		self.connect()
+		self.dv.startbot()
+		self.writeMsgBox("Connecting irc bot")
 
 	else :
 	    self.dialog.ui.Result.setText("Login failed")
@@ -551,6 +576,7 @@ class Mw(KParts.MainWindow):
 	#// to be closed. We could do some final cleanup here.
 	sys.exit()
 	return TRUE #// accept
+
 
 appName     = "Chuggle"
 catalog     = ""
