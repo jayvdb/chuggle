@@ -6,23 +6,23 @@ import thread, urllib2, re
 
 import panbot, config, login, soliddata, events
 
-re_inidiff=re.compile(ur"<table class='diff'>")
-re_enddiff=re.compile(ur"</table>")
 re_revert =re.compile(ur"<span class=\"mw-rollback-link\">\[<a href=\"([^\"]*)\"")
 re_amp    =re.compile(ur"&amp;")
-re_title  =re.compile("var wgTitle = \"([^\"]*)\";")
+
 
 
 class Dv:
-	def __init__ (self, visor):
+	def __init__ (self, visor, conn):
 	    	#reference to  our KHTMLPart
 		self.visor=visor
-		#Event manager
-		self.em=events.EventManager()
-		#bot stuff
-	    	self.bot=panbot.PanBot("#"+config.language+"."+config.project,self.em)
+		#connector
+		self.conn=conn
 		#login manager initialization
 		self.lm=login.LoginManager()
+		#Event manager
+		self.em=events.EventManager(self.conn,self.lm)
+		#bot stuff
+	    	self.bot=panbot.PanBot("#"+config.language+"."+config.project,self.em, self.conn)
 
 		self.title=""
 		self.content=""
@@ -43,23 +43,16 @@ class Dv:
 		response = urllib2.urlopen(urllib2.Request(revertlink, None, headers))
 
 	def viewDiff(self):
-	    	print "clicked"
 		event=self.em.get()
 		if event:
 		    	print event.type
 		    	if event.type == "edit":
+			    	print "pag: "+event.page
 				diff=event.diff
-				print "Getting diff"
-				headers = { 'User-Agent' : config.useragent, 
-					'Cookie': self.lm.cookies() }
-				response = urllib2.urlopen(urllib2.Request(diff, None, headers))
-				html = response.read()
-				title=re_title.search(html)
-				self.title=title.group(1)
-				self.content=soliddata.cssdiff+"<h1>"+self.title+"</h1>"+"<table class=\"diff\">"+re_inidiff.split(html)[1]
-				self.content=re_enddiff.split(self.content)[0]+"</table><body></html>"
+				print diff
 				self.visor.begin()
-				self.visor.write(self.content)
+				self.visor.write(event.diffhtml)
 				self.visor.end()
+
 
 	

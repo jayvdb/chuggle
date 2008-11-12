@@ -63,10 +63,12 @@ class Ui_initdialog(object):
 
         self.PB_login = QtGui.QPushButton(self.horizontalLayout)
         self.PB_login.setObjectName("PB_login")
+	self.PB_login.setMinimumSize(QtCore.QSize(145,20))
         self.hboxlayout.addWidget(self.PB_login)
 
         self.PB_exit = QtGui.QPushButton(self.horizontalLayout)
         self.PB_exit.setObjectName("PB_exit")
+	self.PB_exit.setMinimumSize(QtCore.QSize(145,20))
         self.hboxlayout.addWidget(self.PB_exit)
 
         self.Result = QtGui.QLabel(initdialog)
@@ -77,7 +79,7 @@ class Ui_initdialog(object):
         QtCore.QMetaObject.connectSlotsByName(initdialog)
 
     def retranslateUi(self, initdialog):
-        initdialog.setWindowTitle(QtGui.QApplication.translate("initdialog", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
+        initdialog.setWindowTitle(QtGui.QApplication.translate("initdialog", "Chuggle v0.1", None, QtGui.QApplication.UnicodeUTF8))
         self.label_language.setText(QtGui.QApplication.translate("initdialog", "Language", None, QtGui.QApplication.UnicodeUTF8))
         self.CB_language.addItem(QtGui.QApplication.translate("initdialog", "English", None, QtGui.QApplication.UnicodeUTF8))
         self.CB_project.addItem(QtGui.QApplication.translate("initdialog", "es.wikipedia", None, QtGui.QApplication.UnicodeUTF8))
@@ -86,4 +88,3 @@ class Ui_initdialog(object):
         self.label_password.setText(QtGui.QApplication.translate("initdialog", "Password", None, QtGui.QApplication.UnicodeUTF8))
         self.PB_login.setText(QtGui.QApplication.translate("initdialog", "Login", None, QtGui.QApplication.UnicodeUTF8))
         self.PB_exit.setText(QtGui.QApplication.translate("initdialog", "Exit", None, QtGui.QApplication.UnicodeUTF8))
-

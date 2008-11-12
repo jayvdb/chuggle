@@ -12,7 +12,8 @@ re_diff=re.compile(r"http://[^ ]*")
 
 
 class PanBot(SingleServerIRCBot):
-    def __init__(self, channel, eventmanager):
+    def __init__(self, channel, eventmanager, conn):
+	self.conn=conn
         self.channel = channel
         self.nickname = "pan"+ repr(random.randint(1000,9999))
 	self.port = 6667
@@ -25,7 +26,7 @@ class PanBot(SingleServerIRCBot):
 
     def on_welcome(self, c, e):
         c.join(self.channel)
-	print "bot connected"
+        self.conn.sendSignal("writeMsgBox", "bot connected")
 
     def on_pubmsg(self, c, e):
 	self.em.addEvent(events.Event(e.arguments()[0]))
