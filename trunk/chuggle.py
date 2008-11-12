@@ -524,6 +524,7 @@ class Mw(KParts.MainWindow):
 	#connections
 	QtCore.QObject.connect(self.TB_diff_next,QtCore.SIGNAL("clicked()"),self.dv.viewDiff)
 	QtCore.QObject.connect(self.TB_diff_revert,QtCore.SIGNAL("clicked()"),self.dv.revert)    
+	QtCore.QObject.connect(self.TB_user_whitelist,QtCore.SIGNAL("clicked()"),self.dv.addWhitelist)
 	
     def login(self):
 	username = self.dialog.ui.LE_username.text()
@@ -535,6 +536,8 @@ class Mw(KParts.MainWindow):
 	    self.dialog.hide()
 	    self.connect()
 	    self.dv.startbot()
+	    self.writeMsgBox("Connecting irc bot")
+
 	else :
 	    self.dialog.ui.Result.setText("Login failed")
 
