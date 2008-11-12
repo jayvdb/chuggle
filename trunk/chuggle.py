@@ -17,16 +17,16 @@ from PyQt4 import *
 import config
 import deliverer
 import init
+import connector
 
 class Mw(KParts.MainWindow):
     def setupUi(self):
 	apply (KParts.MainWindow.__init__, (self,))
-        self.resize(QtCore.QSize(QtCore.QRect(0,0,1270,671).size()).expandedTo(self.minimumSizeHint()))
+        self.resize(QtCore.QSize(QtCore.QRect(0,0,1100,671).size()).expandedTo(self.minimumSizeHint()))
       	self.centralwidget = QtGui.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
 
         self.setObjectName("mainwindow")
-        self.resize(QtCore.QSize(QtCore.QRect(0,0,1270,671).size()).expandedTo(self.minimumSizeHint()))
 
         self.centralwidget = QtGui.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
@@ -205,9 +205,9 @@ class Mw(KParts.MainWindow):
         self.listitems.setObjectName("listitems")
         self.vboxlayout.addWidget(self.listitems)
 
-        self.listWidget = QtGui.QListWidget(self.centralwidget)
-        self.listWidget.setGeometry(QtCore.QRect(0,523,1061,81))
-        self.listWidget.setObjectName("listWidget")
+        self.msgBox = QtGui.QListWidget(self.centralwidget)
+        self.msgBox.setGeometry(QtCore.QRect(0,523,1061,81))
+        self.msgBox.setObjectName("msgBox")
 
         self.horizontalLayout = QtGui.QWidget(self.centralwidget)
         self.horizontalLayout.setGeometry(QtCore.QRect(1,60,857,65))
@@ -461,10 +461,10 @@ class Mw(KParts.MainWindow):
         self.setTabOrder(self.TB_history_prev,self.TB_contribs_prev)
         self.setTabOrder(self.TB_contribs_prev,self.TB_history_next)
         self.setTabOrder(self.TB_history_next,self.TB_contribs_next)
-        self.setTabOrder(self.TB_contribs_next,self.listWidget)
+        self.setTabOrder(self.TB_contribs_next,self.msgBox)
 
     def retranslateUi(self):
-        self.setWindowTitle(QtGui.QApplication.translate("mainwindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
+        self.setWindowTitle(QtGui.QApplication.translate("mainwindow", "Chuggle v0.1", None, QtGui.QApplication.UnicodeUTF8))
         self.TB_diff_revert_warn.setText(QtGui.QApplication.translate("mainwindow", "...", None, QtGui.QApplication.UnicodeUTF8))
         #self.TB_diff_next.setText(QtGui.QApplication.translate("mainwindow", "...", None, QtGui.QApplication.UnicodeUTF8))
         self.TB_user_whitelist.setText(QtGui.QApplication.translate("mainwindow", "...", None, QtGui.QApplication.UnicodeUTF8))
@@ -481,7 +481,7 @@ class Mw(KParts.MainWindow):
         self.TB_history_next.setText(QtGui.QApplication.translate("mainwindow", "...", None, QtGui.QApplication.UnicodeUTF8))
         self.TB_contribs_next.setText(QtGui.QApplication.translate("mainwindow", "...", None, QtGui.QApplication.UnicodeUTF8))
         self.label_4.setText(QtGui.QApplication.translate("mainwindow", "History", None, QtGui.QApplication.UnicodeUTF8))
-        self.numitems.setText(QtGui.QApplication.translate("mainwindow", "It", None, QtGui.QApplication.UnicodeUTF8))
+        self.numitems.setText(QtGui.QApplication.translate("mainwindow", "No events", None, QtGui.QApplication.UnicodeUTF8))
         self.TB_browser_prev.setText(QtGui.QApplication.translate("mainwindow", "...", None, QtGui.QApplication.UnicodeUTF8))
         self.TB_browser_next.setText(QtGui.QApplication.translate("mainwindow", "...", None, QtGui.QApplication.UnicodeUTF8))
         self.TB_browser_open.setText(QtGui.QApplication.translate("mainwindow", "...", None, QtGui.QApplication.UnicodeUTF8))
@@ -512,21 +512,24 @@ class Mw(KParts.MainWindow):
 
     def __init__ (self, *args):
     	self.setupUi()
-	self.dialog=init.initform()
+	self.dialog=init.initform(self)
 	QtCore.QObject.connect(self.dialog.ui.PB_login,QtCore.SIGNAL("clicked()"),self.login)
 	QtCore.QObject.connect(self.dialog.ui.PB_exit,QtCore.SIGNAL("clicked()"),self.queryExit)
+	self.conn=connector.Connector()
+	self.conn.register(self.writeMsgBox,"writeMsgBox")	
+	self.conn.register(self.setNumItems,"setNumItems")	
 	self.dialog.exec_()
 
     def connect(self):
 	#connections
 	QtCore.QObject.connect(self.TB_diff_next,QtCore.SIGNAL("clicked()"),self.dv.viewDiff)
 	QtCore.QObject.connect(self.TB_diff_revert,QtCore.SIGNAL("clicked()"),self.dv.revert)    
-
+	
     def login(self):
 	username = self.dialog.ui.LE_username.text()
 	password = self.dialog.ui.LE_password.text()
 	self.dialog.ui.Result.setText("Logging as "+username)
-	self.dv=deliverer.Dv(self.visor)
+	self.dv=deliverer.Dv(self.visor,self.conn)
 	if self.dv.login(username,password):
 	    self.show()
 	    self.dialog.hide()
@@ -535,6 +538,11 @@ class Mw(KParts.MainWindow):
 	else :
 	    self.dialog.ui.Result.setText("Login failed")
 
+    def writeMsgBox(self,msg):
+	self.msgBox.insertItem(0,msg)
+    def setNumItems(self,num):
+	self.numitems.setText(QtGui.QApplication.translate("mainwindow", "Events in queue: ", None, QtGui.QApplication.UnicodeUTF8)+repr(num))
+#	self.numItems.setText("Elements in queue: "+repr(num))
     def queryExit(self):
 	#// this slot is invoked in addition when the *last* window is going
 	#// to be closed. We could do some final cleanup here.
