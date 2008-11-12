@@ -26,6 +26,7 @@ class Dv:
 
 		self.title=""
 		self.content=""
+		self.currevent=""
 	def login(self,username,password):
 	    	return self.lm.login(username,password)
 		
@@ -35,6 +36,7 @@ class Dv:
 	    	print "revert!"
 		revertsearch=re_revert.search(self.content)
 		#TODO: Check if revert link exists
+		print self.content
 		reverttemp=re_amp.sub("&",revertsearch.group(1))
 		revertlink="http://"+config.language+"."+config.project+".org"+reverttemp
 		print revertlink
@@ -46,13 +48,19 @@ class Dv:
 		event=self.em.get()
 		if event:
 		    	print event.type
+			
 		    	if event.type == "edit":
-			    	print "pag: "+event.page
+			    	self.currevent=event
 				diff=event.diff
-				print diff
-				self.visor.begin()
-				self.visor.write(event.diffhtml)
-				self.visor.end()
-
-
-	
+				print "pag: "+event.page+" diff: " +  diff
+				self.content=event.diffhtml
+				try:
+					self.visor.begin()
+					self.visor.write(event.diffhtml)
+					self.visor.end()
+				except:
+				     	print "Unexpected error"
+					print event.diffhtml
+	def addWhitelist(self):
+	    	if self.currevent != "":
+			self.em.addWhitelist(self.currevent.user)
