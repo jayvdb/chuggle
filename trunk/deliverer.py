@@ -29,26 +29,26 @@ class Dv:
 		self.currevent=""
 	def login(self,username,password):
 	    	return self.lm.login(username,password)
-		
+
 	def startbot(self):
 		thread.start_new_thread(self.bot.start,())
+
 	def revert(self):
 	    	print "revert!"
 		revertsearch=re_revert.search(self.content)
 		#TODO: Check if revert link exists
-		print self.content
 		reverttemp=re_amp.sub("&",revertsearch.group(1))
-		revertlink="http://"+config.language+"."+config.project+".org"+reverttemp
-		print revertlink
+		revertlink=reverttemp
 		headers = { 'User-Agent' : config.useragent, 
 					'Cookie': self.lm.cookies() }
-		response = urllib2.urlopen(urllib2.Request(revertlink, None, headers))
+		try:
+			response = urllib2.urlopen(urllib2.Request(revertlink, None, headers))
+		except:
+		    	print "Error reverting"
 
 	def viewDiff(self):
 		event=self.em.get()
 		if event:
-		    	print event.type
-			
 		    	if event.type == "edit":
 			    	self.currevent=event
 				diff=event.diff
@@ -59,7 +59,7 @@ class Dv:
 					self.visor.write(event.diffhtml)
 					self.visor.end()
 				except:
-				     	print "Unexpected error"
+				     	print "Error showing diff"
 					print event.diffhtml
 	def addWhitelist(self):
 	    	if self.currevent != "":
