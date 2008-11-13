@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'panopt.ui'
-# WARNING! All changes made in this file will be lost!
-
 import sys, os, re, urllib2, urllib, thread
 from PyKDE4.kdecore import ki18n, KAboutData, KCmdLineArgs, KUrl
 from PyKDE4.kdeui import KApplication, KMainWindow
@@ -18,6 +15,8 @@ import config
 import deliverer
 import init
 import connector
+import blobber
+import prueba
 import re
 
 re_local=re.compile("href=\"/")
@@ -180,10 +179,10 @@ class Mw(KParts.MainWindow):
         self.label_4.setObjectName("label_4")
         self.gridlayout1.addWidget(self.label_4,0,0,1,1)
 
-        self.listContribs = QtGui.QListWidget(self.horizontalLayoutWidget)
-        self.listContribs.setMinimumSize(QtCore.QSize(200,0))
+        self.listContribs = blobber.Blobber(self.horizontalLayoutWidget)
+        self.listContribs.setMinimumSize(QtCore.QSize(160,0))
         self.listContribs.setMaximumSize(QtCore.QSize(16777215,16777215))
-        self.listContribs.setObjectName("widget")
+        self.listContribs.setObjectName("listContribs")
         self.gridlayout1.addWidget(self.listContribs,0,2,1,1)
 
         self.widget_2 = QtGui.QWidget(self.horizontalLayoutWidget)
