@@ -52,7 +52,6 @@ class Dv:
 		    	if event.type == "edit":
 			    	self.currevent=event
 				diff=event.diff
-				print "pag: "+event.page+" diff: " +  diff
 				self.content=event.diffhtml
 				try:
 					self.visor.begin()
@@ -64,3 +63,4 @@ class Dv:
 	def addWhitelist(self):
 	    	if self.currevent != "":
 			self.em.addWhitelist(self.currevent.user)
+		self.viewDiff()

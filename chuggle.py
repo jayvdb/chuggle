@@ -21,7 +21,9 @@ import connector
 import re
 
 re_local=re.compile("href=\"/")
+re_local1=re.compile("href=\"/")
 re_src=re.compile("src=\"/")
+re_action=re.compile("action=\"/")
 
 class Mw(KParts.MainWindow):
     def setupUi(self):
@@ -178,11 +180,11 @@ class Mw(KParts.MainWindow):
         self.label_4.setObjectName("label_4")
         self.gridlayout1.addWidget(self.label_4,0,0,1,1)
 
-        self.widget = QtGui.QWidget(self.horizontalLayoutWidget)
-        self.widget.setMinimumSize(QtCore.QSize(200,0))
-        self.widget.setMaximumSize(QtCore.QSize(16777215,16777215))
-        self.widget.setObjectName("widget")
-        self.gridlayout1.addWidget(self.widget,0,2,1,1)
+        self.listContribs = QtGui.QListWidget(self.horizontalLayoutWidget)
+        self.listContribs.setMinimumSize(QtCore.QSize(200,0))
+        self.listContribs.setMaximumSize(QtCore.QSize(16777215,16777215))
+        self.listContribs.setObjectName("widget")
+        self.gridlayout1.addWidget(self.listContribs,0,2,1,1)
 
         self.widget_2 = QtGui.QWidget(self.horizontalLayoutWidget)
         self.widget_2.setMinimumSize(QtCore.QSize(200,0))
@@ -527,18 +529,24 @@ class Mw(KParts.MainWindow):
 	self.dialog.exec_()
     def changePage(self, url, args):
 	myurl = str(KUrl(url).prettyUrl().toUtf8())
+	#if it is an external link, we feed id directly to KHTMLpart
+	#it it is not, we do a workaround to inject our headers
 	if myurl.find("http://"+config.language+"."+config.project+".org/") == -1:
 	    	self.visor.openUrl(KUrl(url))
 	else:
 		headers = { 'User-Agent' : config.useragent, 
 			'Cookie': self.dv.lm.cookies() }
+		#convert relative links to absolute
 		if myurl[0:8]=="file:///":
 			myurl="href=\"http://"+config.language+"."+config.project+".org/"+myurl[7:]
 		try:
 			response = urllib2.urlopen(urllib2.Request(myurl, None, headers))
 			html = response.read()
 			html=re_local.sub("href=\"http://"+config.language+"."+config.project+".org/",html)
+			html=re_local1.sub("href='http://"+config.language+"."+config.project+".org/",html)
+
 			html=re_src.sub("src=\"http://"+config.language+"."+config.project+".org/",html)
+			html=re_action.sub("action=\"http://"+config.language+"."+config.project+".org/",html)
 			self.visor.begin()
 			self.visor.write(html)
 			self.visor.end()
