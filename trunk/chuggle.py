@@ -16,7 +16,6 @@ import deliverer
 import init
 import connector
 import blobber
-import prueba
 import re
 
 re_local=re.compile("href=\"/")
