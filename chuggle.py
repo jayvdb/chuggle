@@ -26,17 +26,20 @@ re_action=re.compile("action=\"/")
 class Mw(KParts.MainWindow):
     def setupUi(self):
 	apply (KParts.MainWindow.__init__, (self,))
-        self.resize(QtCore.QSize(QtCore.QRect(0,0,1100,671).size()).expandedTo(self.minimumSizeHint()))
+        self.resize(QtCore.QSize(QtCore.QRect(0,0,1150,671).size()).expandedTo(self.minimumSizeHint()))
+
+#	self.setMinimumSize(QtCore.QSize(1100,671))
+	self.setSizePolicy(QtGui.QSizePolicy.Expanding,QtGui.QSizePolicy.Expanding)
+
       	self.centralwidget = QtGui.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
+	self.centralwidget.setSizePolicy(QtGui.QSizePolicy.Expanding,QtGui.QSizePolicy.Expanding)
+#	self.centralwidget.setGeometry(QtCore.QRect(0,0,1150,72))
 
         self.setObjectName("mainwindow")
 
-        self.centralwidget = QtGui.QWidget(self)
-        self.centralwidget.setObjectName("centralwidget")
-
         self.horizontalLayoutWidget = QtGui.QWidget(self.centralwidget)
-        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(0,0,1098,72))
+        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(0,0,1094,72))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
 
         self.hboxlayout = QtGui.QHBoxLayout(self.horizontalLayoutWidget)
@@ -45,6 +48,7 @@ class Mw(KParts.MainWindow):
 
         self.TB_diff_revert_warn = QtGui.QToolButton(self.horizontalLayoutWidget)
         self.TB_diff_revert_warn.setMinimumSize(QtCore.QSize(55,55))
+	self.TB_diff_revert_warn.setMaximumSize(QtCore.QSize(55,55))
 	self.TB_diff_revert_warn.setIcon(QtGui.QIcon("Resources/icons/diff-revert-warn.png"))
 	self.TB_diff_revert_warn.setIconSize(QSize(55,55))
         self.TB_diff_revert_warn.setObjectName("TB_diff_revert_warn")
@@ -179,8 +183,8 @@ class Mw(KParts.MainWindow):
         self.gridlayout1.addWidget(self.label_4,0,0,1,1)
 
         self.listContribs = blobber.Blobber(self.horizontalLayoutWidget)
-        self.listContribs.setMinimumSize(QtCore.QSize(160,0))
-        self.listContribs.setMaximumSize(QtCore.QSize(16777215,16777215))
+        self.listContribs.setMinimumSize(QtCore.QSize(300,20))
+        self.listContribs.setMaximumSize(QtCore.QSize(300,20))
         self.listContribs.setObjectName("listContribs")
         self.gridlayout1.addWidget(self.listContribs,0,2,1,1)
 
@@ -398,29 +402,20 @@ class Mw(KParts.MainWindow):
         self.TB_user_report.setObjectName("TB_user_report")
         self.hboxlayout1.addWidget(self.TB_user_report)
 
-        self.verticalLayout_2 = QtGui.QWidget(self.centralwidget)
-        self.verticalLayout_2.setGeometry(QtCore.QRect(210,110,881,401))
-        self.verticalLayout_2.setObjectName("verticalLayout_2")
-
-        self.vboxlayout1 = QtGui.QVBoxLayout(self.verticalLayout_2)
-        self.vboxlayout1.setObjectName("vboxlayout1")
-	
-	self.visor =KHTMLPart(self.verticalLayout_2)
+	self.visor =KHTMLPart(self.centralwidget)
 	self.visor.setObjectName("visor")
 	self.visor.begin()
+	self.visor.view().setGeometry(QtCore.QRect(210,120,881,401))
+#	self.visor.view()
+	self.visor.view().setSizePolicy(QtGui.QSizePolicy.Expanding,QtGui.QSizePolicy.Expanding)
 
 	url = "http://"+config.language+"."+config.project+".org"
 
 	self.visor.openUrl (KUrl(url))
-        self.vboxlayout1.addWidget(self.visor.view())
+#        self.vboxlayout1.addWidget(self.visor.view())
 
 	self.visor.show()
 	self.extension=self.visor.browserExtension()
-
-
-        self.widget_3 = QtGui.QWidget(self.verticalLayout_2)
-        self.widget_3.setObjectName("widget_3")
-        self.vboxlayout1.addWidget(self.widget_3)
         self.setCentralWidget(self.centralwidget)
 	
         self.menubar = QtGui.QMenuBar(self)
