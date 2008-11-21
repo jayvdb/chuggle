@@ -1,5 +1,49 @@
 Copyright (c) 2008 Chabacano
 Login module wrote by the Pywikipedia Team 
+Idea, look and feel based on Huggle ( http://en.wikipedia.org/wiki/Wikipedia:Huggle ), this is a clone for linux wrote. The source code is totally different.
+The icons are licensed in LGPL (see file LGPL for details) and its author is David Vignoni. Some of them are derivative works of the original, this drivative work were made by Gurch ( en.wikipedia.org/wiki/User:Gurch ). Blobs were released to public domain by Gurch.
+
+browser-add-tab.png	: David Vignoni 
+browser-next.png	: David Vignoni
+browser-open.png	: David Vignoni
+browser-prev.png	: David Vignoni
+browser-remove-tab.png	: David Vignoni and Gurch
+cancel-all.png		: David Vignoni 
+contribs-last.png	: David Vignoni and Gurch
+contribs-next.png	: David Vignoni and Gurch
+contribs-prev.png	: David Vignoni and Gurch
+diff-next.png		: David Vignoni
+diff-revert.png		: David Vignoni
+diff-revert-warn.png	: David Vignoni and Gurch
+gray-down.png		: David Vignoni and Gurch
+gray-last.png		: David Vignoni and Gurch
+gray-next.png		: David Vignoni and Gurch
+gray-previous.png	: David Vignoni and Gurch
+gray-up.png		: David Vignoni and Gurch
+history-last.png	: David Vignoni
+history-next.png	: David Vignoni
+history-previous.png	: David Vignoni
+history-to-cur.png	: David Vignoni and Gurch
+page-delete.png		: David Vignoni and Gurch
+page-edit.png		: David Vignoni
+page-tag-delete.png	: David Vignoni and Gurch
+page-tag.png		: David Vignoni
+page-unwatch.png	: David Vignoni and Gurch
+page-view.png		: David Vignoni
+page-watch.png		: David Vignoni and Gurch
+tri_none.png		: David Vignoni
+tri_no.png		: David Vignoni
+tri_yes.png		: David Vignoni
+undo.png		: David Vignoni
+user-block.png		: David Vignoni
+user-info.png		: David Vignoni
+user-message.png	: David Vignoni and Gurch
+user-report.png		: David Vignoni and Gurch
+user-talk.png		: David Vignoni and Gurch
+user-template.png	: David Vignoni
+user-unwhitelist.png	: David Vignoni and Gurch
+user-warn.png		: David Vignoni
+user-whitelist.png	: David Vignoni
 
 Permission is hereby granted, free of charge, to any person obtaining a copy 
 of this software and associated documentation files (the "Software"), to deal
