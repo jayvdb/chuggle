@@ -14,11 +14,11 @@ from initdialog import Ui_initdialog
 #import main
 
 class initform(QtGui.QDialog):
-	def __init__(self, parent=None):
-        	QtGui.QWidget.__init__(self, parent)
-		self.parent=parent
-	        self.ui = Ui_initdialog()
-        	self.ui.setupUi(self)
-	def closeEvent(self,arg):
-	    	#if this dialog is closed, close everything
-	    	self.parent.queryExit()
+    def __init__(self, parent=None):
+        QtGui.QWidget.__init__(self, parent)
+        self.parent=parent
+        self.ui = Ui_initdialog()
+        self.ui.setupUi(self)
+    def closeEvent(self,arg):
+        #if this dialog is closed, close everything
+        self.parent.queryExit()

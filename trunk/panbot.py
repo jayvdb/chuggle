@@ -16,7 +16,7 @@ class PanBot(SingleServerIRCBot):
     def __init__(self, channel, eventmanager, conn):
         self.conn=conn
         self.channel = channel
-        self.nickname = "pan"+ repr(random.randint(1000,9999))
+        self.nickname = "chuggle"+ repr(random.randint(1,9999))
         self.port = 6667
      	self.server = "browne.wikimedia.org"
         SingleServerIRCBot.__init__(self, [(self.server, self.port)], self.nickname, self.nickname)

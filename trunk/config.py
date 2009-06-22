@@ -3,7 +3,7 @@
 import sys
 project = "wikipedia"
 language = "es"
-site	 = project+":"+language
+site = project+":"+language
 
 username = "Chabacano"
 password = ""
