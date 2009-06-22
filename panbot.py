@@ -10,17 +10,18 @@ import events
 
 re_diff=re.compile(r"http://[^ ]*")
 
+#This class contains the IRC bot and sends events to the event manager
 
 class PanBot(SingleServerIRCBot):
     def __init__(self, channel, eventmanager, conn):
-	self.conn=conn
+        self.conn=conn
         self.channel = channel
         self.nickname = "pan"+ repr(random.randint(1000,9999))
-	self.port = 6667
-    	self.server = "browne.wikimedia.org"
+        self.port = 6667
+     	self.server = "browne.wikimedia.org"
         SingleServerIRCBot.__init__(self, [(self.server, self.port)], self.nickname, self.nickname)
-	self.buffer=[]
-	self.em=eventmanager
+        self.buffer=[]
+        self.em=eventmanager
     def on_nicknameinuse(self, c, e):
         c.nick(c.get_nickname() + "_")
 
@@ -29,7 +30,7 @@ class PanBot(SingleServerIRCBot):
         self.conn.sendSignal("writeMsgBox", "bot connected")
 
     def on_pubmsg(self, c, e):
-	self.em.addEvent(events.Event(e.arguments()[0]))
+        self.em.addEvent(events.Event(e.arguments()[0]))
         return
 
 def main():

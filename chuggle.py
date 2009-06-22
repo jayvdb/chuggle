@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+#!/usr/bin/python
 
 import sys, os, re, urllib2, urllib, thread
 from PyKDE4.kdecore import ki18n, KAboutData, KCmdLineArgs, KUrl
@@ -25,16 +26,16 @@ re_action=re.compile("action=\"/")
 
 class Mw(KParts.MainWindow):
     def setupUi(self):
-	apply (KParts.MainWindow.__init__, (self,))
+        apply (KParts.MainWindow.__init__, (self,))
         self.resize(QtCore.QSize(QtCore.QRect(0,0,1150,671).size()).expandedTo(self.minimumSizeHint()))
 
-#	self.setMinimumSize(QtCore.QSize(1100,671))
-	self.setSizePolicy(QtGui.QSizePolicy.Expanding,QtGui.QSizePolicy.Expanding)
+#self.setMinimumSize(QtCore.QSize(1100,671))
+        self.setSizePolicy(QtGui.QSizePolicy.Expanding,QtGui.QSizePolicy.Expanding)
 
-      	self.centralwidget = QtGui.QWidget(self)
+        self.centralwidget = QtGui.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
-	self.centralwidget.setSizePolicy(QtGui.QSizePolicy.Expanding,QtGui.QSizePolicy.Expanding)
-#	self.centralwidget.setGeometry(QtCore.QRect(0,0,1150,72))
+        self.centralwidget.setSizePolicy(QtGui.QSizePolicy.Expanding,QtGui.QSizePolicy.Expanding)
+#self.centralwidget.setGeometry(QtCore.QRect(0,0,1150,72))
 
         self.setObjectName("mainwindow")
 
@@ -48,16 +49,16 @@ class Mw(KParts.MainWindow):
 
         self.TB_diff_revert_warn = QtGui.QToolButton(self.horizontalLayoutWidget)
         self.TB_diff_revert_warn.setMinimumSize(QtCore.QSize(55,55))
-	self.TB_diff_revert_warn.setMaximumSize(QtCore.QSize(55,55))
-	self.TB_diff_revert_warn.setIcon(QtGui.QIcon("Resources/icons/diff-revert-warn.png"))
-	self.TB_diff_revert_warn.setIconSize(QSize(55,55))
+        self.TB_diff_revert_warn.setMaximumSize(QtCore.QSize(55,55))
+        self.TB_diff_revert_warn.setIcon(QtGui.QIcon("Resources/icons/diff-revert-warn.png"))
+        self.TB_diff_revert_warn.setIconSize(QSize(55,55))
         self.TB_diff_revert_warn.setObjectName("TB_diff_revert_warn")
         self.hboxlayout.addWidget(self.TB_diff_revert_warn)
 
         self.TB_diff_next = QtGui.QToolButton(self.horizontalLayoutWidget)
         self.TB_diff_next.setMinimumSize(QtCore.QSize(55,55))
-	self.TB_diff_next.setIcon(QtGui.QIcon("Resources/icons/diff-next.png"))
-	self.TB_diff_next.setIconSize(QSize(55,55))
+        self.TB_diff_next.setIcon(QtGui.QIcon("Resources/icons/diff-next.png"))
+        self.TB_diff_next.setIconSize(QSize(55,55))
         self.TB_diff_next.setObjectName("diff_next")
         self.hboxlayout.addWidget(self.TB_diff_next)
 
@@ -69,29 +70,29 @@ class Mw(KParts.MainWindow):
 
         self.TB_user_whitelist = QtGui.QToolButton(self.horizontalLayoutWidget)
         self.TB_user_whitelist.setMinimumSize(QtCore.QSize(55,55))
-	self.TB_user_whitelist.setIcon(QtGui.QIcon("Resources/icons/user-whitelist.png"))
-	self.TB_user_whitelist.setIconSize(QSize(55,55))
+        self.TB_user_whitelist.setIcon(QtGui.QIcon("Resources/icons/user-whitelist.png"))
+        self.TB_user_whitelist.setIconSize(QSize(55,55))
         self.TB_user_whitelist.setObjectName("TB_user_whitelist")
         self.hboxlayout.addWidget(self.TB_user_whitelist)
 
         self.TB_diff_revert = QtGui.QToolButton(self.horizontalLayoutWidget)
         self.TB_diff_revert.setMinimumSize(QtCore.QSize(55,55))
-	self.TB_diff_revert.setIconSize(QSize(55,55))
-	self.TB_diff_revert.setIcon(QtGui.QIcon("Resources/icons/diff-revert.png"))
+        self.TB_diff_revert.setIconSize(QSize(55,55))
+        self.TB_diff_revert.setIcon(QtGui.QIcon("Resources/icons/diff-revert.png"))
         self.TB_diff_revert.setObjectName("TB_diff_revert")
         self.hboxlayout.addWidget(self.TB_diff_revert)
 
         self.TB_user_template = QtGui.QToolButton(self.horizontalLayoutWidget)
         self.TB_user_template.setMinimumSize(QtCore.QSize(55,55))
-	self.TB_user_template.setIconSize(QSize(55,55))
-	self.TB_user_template.setIcon(QtGui.QIcon("Resources/icons/user-template.png"))
+        self.TB_user_template.setIconSize(QSize(55,55))
+        self.TB_user_template.setIcon(QtGui.QIcon("Resources/icons/user-template.png"))
         self.TB_user_template.setObjectName("TB_user_template")
         self.hboxlayout.addWidget(self.TB_user_template)
 
         self.TB_user_warn = QtGui.QToolButton(self.horizontalLayoutWidget)
         self.TB_user_warn.setMinimumSize(QtCore.QSize(55,55))
-	self.TB_user_warn.setIconSize(QSize(55,55))
-	self.TB_user_warn.setIcon(QtGui.QIcon("Resources/icons/user-warn.png"))
+        self.TB_user_warn.setIconSize(QSize(55,55))
+        self.TB_user_warn.setIcon(QtGui.QIcon("Resources/icons/user-warn.png"))
         self.TB_user_warn.setObjectName("TB_user_warn")
         self.hboxlayout.addWidget(self.TB_user_warn)
 
@@ -103,15 +104,15 @@ class Mw(KParts.MainWindow):
 
         self.TB_cancel_all = QtGui.QToolButton(self.horizontalLayoutWidget)
         self.TB_cancel_all.setMinimumSize(QtCore.QSize(55,55))
-	self.TB_cancel_all.setIconSize(QSize(55,55))
-	self.TB_cancel_all.setIcon(QtGui.QIcon("Resources/icons/cancel-all.png"))
+        self.TB_cancel_all.setIconSize(QSize(55,55))
+        self.TB_cancel_all.setIcon(QtGui.QIcon("Resources/icons/cancel-all.png"))
         self.TB_cancel_all.setObjectName("TB_cancel_all")
         self.hboxlayout.addWidget(self.TB_cancel_all)
 
         self.TB_undo = QtGui.QToolButton(self.horizontalLayoutWidget)
         self.TB_undo.setMinimumSize(QtCore.QSize(55,55))
-	self.TB_undo.setIconSize(QSize(55,55))
-	self.TB_undo.setIcon(QtGui.QIcon("Resources/icons/undo.png"))
+        self.TB_undo.setIconSize(QSize(55,55))
+        self.TB_undo.setIcon(QtGui.QIcon("Resources/icons/undo.png"))
         self.TB_undo.setObjectName("TB_undo")
         self.hboxlayout.addWidget(self.TB_undo)
 
@@ -155,26 +156,26 @@ class Mw(KParts.MainWindow):
 
         self.TB_history_prev = QtGui.QToolButton(self.horizontalLayoutWidget)
         self.TB_history_prev.setObjectName("TB_history_prev")
-	self.TB_history_prev.setIconSize(QSize(20,20))
-	self.TB_history_prev.setIcon(QtGui.QIcon("Resources/icons/history-previous.png"))
+        self.TB_history_prev.setIconSize(QSize(20,20))
+        self.TB_history_prev.setIcon(QtGui.QIcon("Resources/icons/history-previous.png"))
         self.gridlayout1.addWidget(self.TB_history_prev,0,1,1,1)
 
         self.TB_contribs_prev = QtGui.QToolButton(self.horizontalLayoutWidget)
         self.TB_contribs_prev.setObjectName("TB_contribs_prev")
-	self.TB_contribs_prev.setIconSize(QSize(20,20))
-	self.TB_contribs_prev.setIcon(QtGui.QIcon("Resources/icons/contribs-prev.png"))
+        self.TB_contribs_prev.setIconSize(QSize(20,20))
+        self.TB_contribs_prev.setIcon(QtGui.QIcon("Resources/icons/contribs-prev.png"))
         self.gridlayout1.addWidget(self.TB_contribs_prev,1,1,1,1)
 
         self.TB_history_next = QtGui.QToolButton(self.horizontalLayoutWidget)
         self.TB_history_next.setObjectName("TB_history_next")
-	self.TB_history_next.setIconSize(QSize(20,20))
-	self.TB_history_next.setIcon(QtGui.QIcon("Resources/icons/history-next.png"))
+        self.TB_history_next.setIconSize(QSize(20,20))
+        self.TB_history_next.setIcon(QtGui.QIcon("Resources/icons/history-next.png"))
         self.gridlayout1.addWidget(self.TB_history_next,0,3,1,1)
 
         self.TB_contribs_next = QtGui.QToolButton(self.horizontalLayoutWidget)
         self.TB_contribs_next.setObjectName("TB_contribs_next")
-	self.TB_contribs_next.setIconSize(QSize(20,20))
-	self.TB_contribs_next.setIcon(QtGui.QIcon("Resources/icons/contribs-next.png"))
+        self.TB_contribs_next.setIconSize(QSize(20,20))
+        self.TB_contribs_next.setIcon(QtGui.QIcon("Resources/icons/contribs-next.png"))
         self.gridlayout1.addWidget(self.TB_contribs_next,1,3,1,1)
 
         self.label_4 = QtGui.QLabel(self.horizontalLayoutWidget)
@@ -227,15 +228,15 @@ class Mw(KParts.MainWindow):
 
         self.TB_browser_prev = QtGui.QToolButton(self.horizontalLayout)
         self.TB_browser_prev.setMinimumSize(QtCore.QSize(35,35))
-	self.TB_browser_prev.setIconSize(QSize(35,35))
-	self.TB_browser_prev.setIcon(QtGui.QIcon("Resources/icons/browser-prev.png"))
+        self.TB_browser_prev.setIconSize(QSize(35,35))
+        self.TB_browser_prev.setIcon(QtGui.QIcon("Resources/icons/browser-prev.png"))
         self.TB_browser_prev.setObjectName("TB_browser_prev")
         self.hboxlayout1.addWidget(self.TB_browser_prev)
 
         self.TB_browser_next = QtGui.QToolButton(self.horizontalLayout)
         self.TB_browser_next.setMinimumSize(QtCore.QSize(35,35))
-	self.TB_browser_next.setIconSize(QSize(35,35))
-	self.TB_browser_next.setIcon(QtGui.QIcon("Resources/icons/browser-next.png"))
+        self.TB_browser_next.setIconSize(QSize(35,35))
+        self.TB_browser_next.setIcon(QtGui.QIcon("Resources/icons/browser-next.png"))
         self.TB_browser_next.setObjectName("TB_browser_next")
         self.hboxlayout1.addWidget(self.TB_browser_next)
 
@@ -247,22 +248,22 @@ class Mw(KParts.MainWindow):
 
         self.TB_browser_open = QtGui.QToolButton(self.horizontalLayout)
         self.TB_browser_open.setMinimumSize(QtCore.QSize(35,35))
-	self.TB_browser_open.setIconSize(QSize(35,35))
-	self.TB_browser_open.setIcon(QtGui.QIcon("Resources/icons/browser-open.png"))
+        self.TB_browser_open.setIconSize(QSize(35,35))
+        self.TB_browser_open.setIcon(QtGui.QIcon("Resources/icons/browser-open.png"))
         self.TB_browser_open.setObjectName("TB_browser_open")
         self.hboxlayout1.addWidget(self.TB_browser_open)
 
         self.TB_browser_add_tab = QtGui.QToolButton(self.horizontalLayout)
         self.TB_browser_add_tab.setMinimumSize(QtCore.QSize(35,35))
-	self.TB_browser_add_tab.setIconSize(QSize(35,35))
-	self.TB_browser_add_tab.setIcon(QtGui.QIcon("Resources/icons/browser-add-tab.png"))
+        self.TB_browser_add_tab.setIconSize(QSize(35,35))
+        self.TB_browser_add_tab.setIcon(QtGui.QIcon("Resources/icons/browser-add-tab.png"))
         self.TB_browser_add_tab.setObjectName("TB_browser_add_tab")
         self.hboxlayout1.addWidget(self.TB_browser_add_tab)
 
         self.TB_browser_remove_tab = QtGui.QToolButton(self.horizontalLayout)
         self.TB_browser_remove_tab.setMinimumSize(QtCore.QSize(35,35))
-	self.TB_browser_remove_tab.setIconSize(QSize(35,35))
-	self.TB_browser_remove_tab.setIcon(QtGui.QIcon("Resources/icons/browser-remove-tab.png"))
+        self.TB_browser_remove_tab.setIconSize(QSize(35,35))
+        self.TB_browser_remove_tab.setIcon(QtGui.QIcon("Resources/icons/browser-remove-tab.png"))
         self.TB_browser_remove_tab.setObjectName("TB_browser_remove_tab")
         self.hboxlayout1.addWidget(self.TB_browser_remove_tab)
 
@@ -274,29 +275,29 @@ class Mw(KParts.MainWindow):
 
         self.TB_history_prev_2 = QtGui.QToolButton(self.horizontalLayout)
         self.TB_history_prev_2.setMinimumSize(QtCore.QSize(35,35))
-	self.TB_history_prev_2.setIconSize(QSize(35,35))
-	self.TB_history_prev_2.setIcon(QtGui.QIcon("Resources/icons/history-previous.png"))
+        self.TB_history_prev_2.setIconSize(QSize(35,35))
+        self.TB_history_prev_2.setIcon(QtGui.QIcon("Resources/icons/history-previous.png"))
         self.TB_history_prev_2.setObjectName("TB_history_prev_2")
         self.hboxlayout1.addWidget(self.TB_history_prev_2)
 
         self.TB_history_next_2 = QtGui.QToolButton(self.horizontalLayout)
         self.TB_history_next_2.setMinimumSize(QtCore.QSize(35,35))
-	self.TB_history_next_2.setIconSize(QSize(35,35))
-	self.TB_history_next_2.setIcon(QtGui.QIcon("Resources/icons/history-next.png"))
+        self.TB_history_next_2.setIconSize(QSize(35,35))
+        self.TB_history_next_2.setIcon(QtGui.QIcon("Resources/icons/history-next.png"))
         self.TB_history_next_2.setObjectName("TB_history_next_2")
         self.hboxlayout1.addWidget(self.TB_history_next_2)
 
         self.TB_history_last = QtGui.QToolButton(self.horizontalLayout)
         self.TB_history_last.setMinimumSize(QtCore.QSize(35,35))
-	self.TB_history_last.setIconSize(QSize(35,35))
-	self.TB_history_last.setIcon(QtGui.QIcon("Resources/icons/history-last.png"))
+        self.TB_history_last.setIconSize(QSize(35,35))
+        self.TB_history_last.setIcon(QtGui.QIcon("Resources/icons/history-last.png"))
         self.TB_history_last.setObjectName("TB_history_last")
         self.hboxlayout1.addWidget(self.TB_history_last)
 
         self.TB_history_to_cur = QtGui.QToolButton(self.horizontalLayout)
         self.TB_history_to_cur.setMinimumSize(QtCore.QSize(35,35))
-	self.TB_history_to_cur.setIconSize(QSize(35,35))
-	self.TB_history_to_cur.setIcon(QtGui.QIcon("Resources/icons/history-to-cur.png"))
+        self.TB_history_to_cur.setIconSize(QSize(35,35))
+        self.TB_history_to_cur.setIcon(QtGui.QIcon("Resources/icons/history-to-cur.png"))
         self.TB_history_to_cur.setObjectName("TB_history_to_cur")
         self.hboxlayout1.addWidget(self.TB_history_to_cur)
 
@@ -308,22 +309,22 @@ class Mw(KParts.MainWindow):
 
         self.TB_contribs_prev_2 = QtGui.QToolButton(self.horizontalLayout)
         self.TB_contribs_prev_2.setMinimumSize(QtCore.QSize(35,35))
-	self.TB_contribs_prev_2.setIconSize(QSize(35,35))
-	self.TB_contribs_prev_2.setIcon(QtGui.QIcon("Resources/icons/contribs-prev.png"))
+        self.TB_contribs_prev_2.setIconSize(QSize(35,35))
+        self.TB_contribs_prev_2.setIcon(QtGui.QIcon("Resources/icons/contribs-prev.png"))
         self.TB_contribs_prev_2.setObjectName("TB_contribs_prev_2")
         self.hboxlayout1.addWidget(self.TB_contribs_prev_2)
 
         self.TB_contribs_next_2 = QtGui.QToolButton(self.horizontalLayout)
         self.TB_contribs_next_2.setMinimumSize(QtCore.QSize(35,35))
-	self.TB_contribs_next_2.setIconSize(QSize(35,35))
-	self.TB_contribs_next_2.setIcon(QtGui.QIcon("Resources/icons/contribs-next.png"))
+        self.TB_contribs_next_2.setIconSize(QSize(35,35))
+        self.TB_contribs_next_2.setIcon(QtGui.QIcon("Resources/icons/contribs-next.png"))
         self.TB_contribs_next_2.setObjectName("TB_contribs_next_2")
         self.hboxlayout1.addWidget(self.TB_contribs_next_2)
 
         self.TB_contribs_last = QtGui.QToolButton(self.horizontalLayout)
         self.TB_contribs_last.setMinimumSize(QtCore.QSize(35,35))
-	self.TB_contribs_last.setIconSize(QSize(35,35))
-	self.TB_contribs_last.setIcon(QtGui.QIcon("Resources/icons/contribs-last.png"))
+        self.TB_contribs_last.setIconSize(QSize(35,35))
+        self.TB_contribs_last.setIcon(QtGui.QIcon("Resources/icons/contribs-last.png"))
         self.TB_contribs_last.setObjectName("TB_contribs_last")
         self.hboxlayout1.addWidget(self.TB_contribs_last)
 
@@ -335,36 +336,36 @@ class Mw(KParts.MainWindow):
 
         self.TB_page_view = QtGui.QToolButton(self.horizontalLayout)
         self.TB_page_view.setMinimumSize(QtCore.QSize(35,35))
-	self.TB_page_view.setIconSize(QSize(35,35))
-	self.TB_page_view.setIcon(QtGui.QIcon("Resources/icons/page-view.png"))
+        self.TB_page_view.setIconSize(QSize(35,35))
+        self.TB_page_view.setIcon(QtGui.QIcon("Resources/icons/page-view.png"))
         self.TB_page_view.setObjectName("TB_page_view")
         self.hboxlayout1.addWidget(self.TB_page_view)
 
         self.TB_page_edit = QtGui.QToolButton(self.horizontalLayout)
         self.TB_page_edit.setMinimumSize(QtCore.QSize(35,35))
-	self.TB_page_edit.setIconSize(QSize(35,35))
-	self.TB_page_edit.setIcon(QtGui.QIcon("Resources/icons/page-edit.png"))
+        self.TB_page_edit.setIconSize(QSize(35,35))
+        self.TB_page_edit.setIcon(QtGui.QIcon("Resources/icons/page-edit.png"))
         self.TB_page_edit.setObjectName("TB_page_edit")
         self.hboxlayout1.addWidget(self.TB_page_edit)
 
         self.TB_page_tag = QtGui.QToolButton(self.horizontalLayout)
         self.TB_page_tag.setMinimumSize(QtCore.QSize(35,35))
-	self.TB_page_tag.setIconSize(QSize(35,35))
-	self.TB_page_tag.setIcon(QtGui.QIcon("Resources/icons/page-tag.png"))
+        self.TB_page_tag.setIconSize(QSize(35,35))
+        self.TB_page_tag.setIcon(QtGui.QIcon("Resources/icons/page-tag.png"))
         self.TB_page_tag.setObjectName("TB_page_tag")
         self.hboxlayout1.addWidget(self.TB_page_tag)
 
         self.TB_page_delete = QtGui.QToolButton(self.horizontalLayout)
         self.TB_page_delete.setMinimumSize(QtCore.QSize(35,35))
-	self.TB_page_delete.setIconSize(QSize(35,35))
-	self.TB_page_delete.setIcon(QtGui.QIcon("Resources/icons/page-delete.png"))
+        self.TB_page_delete.setIconSize(QSize(35,35))
+        self.TB_page_delete.setIcon(QtGui.QIcon("Resources/icons/page-delete.png"))
         self.TB_page_delete.setObjectName("TB_page_delete")
         self.hboxlayout1.addWidget(self.TB_page_delete)
 
         self.TB_page_watch = QtGui.QToolButton(self.horizontalLayout)
         self.TB_page_watch.setMinimumSize(QtCore.QSize(35,35))
-	self.TB_page_watch.setIconSize(QSize(35,35))
-	self.TB_page_watch.setIcon(QtGui.QIcon("Resources/icons/page-watch.png"))
+        self.TB_page_watch.setIconSize(QSize(35,35))
+        self.TB_page_watch.setIcon(QtGui.QIcon("Resources/icons/page-watch.png"))
         self.TB_page_watch.setObjectName("TB_page_watch")
         self.hboxlayout1.addWidget(self.TB_page_watch)
 
@@ -376,48 +377,48 @@ class Mw(KParts.MainWindow):
 
         self.TB_user_info = QtGui.QToolButton(self.horizontalLayout)
         self.TB_user_info.setMinimumSize(QtCore.QSize(35,35))
-	self.TB_user_info.setIconSize(QSize(35,35))
-	self.TB_user_info.setIcon(QtGui.QIcon("Resources/icons/user-info.png"))
+        self.TB_user_info.setIconSize(QSize(35,35))
+        self.TB_user_info.setIcon(QtGui.QIcon("Resources/icons/user-info.png"))
         self.TB_user_info.setObjectName("TB_user_info")
         self.hboxlayout1.addWidget(self.TB_user_info)
 
         self.TB_user_talk = QtGui.QToolButton(self.horizontalLayout)
         self.TB_user_talk.setMinimumSize(QtCore.QSize(35,35))
-	self.TB_user_talk.setIconSize(QSize(35,35))
-	self.TB_user_talk.setIcon(QtGui.QIcon("Resources/icons/user-talk.png"))
+        self.TB_user_talk.setIconSize(QSize(35,35))
+        self.TB_user_talk.setIcon(QtGui.QIcon("Resources/icons/user-talk.png"))
         self.TB_user_talk.setObjectName("TB_user_talk")
         self.hboxlayout1.addWidget(self.TB_user_talk)
 
         self.TB_user_message = QtGui.QToolButton(self.horizontalLayout)
         self.TB_user_message.setMinimumSize(QtCore.QSize(35,35))
-	self.TB_user_message.setIconSize(QSize(35,35))
-	self.TB_user_message.setIcon(QtGui.QIcon("Resources/icons/user-message.png"))
+        self.TB_user_message.setIconSize(QSize(35,35))
+        self.TB_user_message.setIcon(QtGui.QIcon("Resources/icons/user-message.png"))
         self.TB_user_message.setObjectName("TB_user_message")
         self.hboxlayout1.addWidget(self.TB_user_message)
 
         self.TB_user_report = QtGui.QToolButton(self.horizontalLayout)
         self.TB_user_report.setMinimumSize(QtCore.QSize(35,35))
-	self.TB_user_report.setIconSize(QSize(35,35))
-	self.TB_user_report.setIcon(QtGui.QIcon("Resources/icons/user-report.png"))
+        self.TB_user_report.setIconSize(QSize(35,35))
+        self.TB_user_report.setIcon(QtGui.QIcon("Resources/icons/user-report.png"))
         self.TB_user_report.setObjectName("TB_user_report")
         self.hboxlayout1.addWidget(self.TB_user_report)
 
-	self.visor =KHTMLPart(self.centralwidget)
-	self.visor.setObjectName("visor")
-	self.visor.begin()
-	self.visor.view().setGeometry(QtCore.QRect(210,120,881,401))
-#	self.visor.view()
-	self.visor.view().setSizePolicy(QtGui.QSizePolicy.Expanding,QtGui.QSizePolicy.Expanding)
+        self.visor =KHTMLPart(self.centralwidget)
+        self.visor.setObjectName("visor")
+        self.visor.begin()
+        self.visor.view().setGeometry(QtCore.QRect(210,120,881,401))
+#        self.visor.view()
+        self.visor.view().setSizePolicy(QtGui.QSizePolicy.Expanding,QtGui.QSizePolicy.Expanding)
 
-	url = "http://"+config.language+"."+config.project+".org"
+        url = "http://"+config.language+"."+config.project+".org"
 
-	self.visor.openUrl (KUrl(url))
+        self.visor.openUrl (KUrl(url))
 #        self.vboxlayout1.addWidget(self.visor.view())
 
-	self.visor.show()
-	self.extension=self.visor.browserExtension()
+        self.visor.show()
+        self.extension=self.visor.browserExtension()
         self.setCentralWidget(self.centralwidget)
-	
+        
         self.menubar = QtGui.QMenuBar(self)
         self.menubar.setGeometry(QtCore.QRect(0,0,1270,27))
         self.menubar.setObjectName("menubar")
@@ -511,72 +512,72 @@ class Mw(KParts.MainWindow):
         self.menuHelp.setTitle(QtGui.QApplication.translate("mainwindow", "Help", None, QtGui.QApplication.UnicodeUTF8))
 
     def __init__ (self, *args):
-    	self.setupUi()
-	self.dialog=init.initform(self)
-	QtCore.QObject.connect(self.dialog.ui.PB_login,QtCore.SIGNAL("clicked()"),self.login)
-	QtCore.QObject.connect(self.dialog.ui.PB_exit,QtCore.SIGNAL("clicked()"),self.queryExit)
-	QtCore.QObject.connect(self.extension, SIGNAL ('openUrlRequest (const KUrl&, const KParts::OpenUrlArguments&, const KParts::BrowserArguments&)'), self.changePage)
-	self.conn=connector.Connector()
-	self.conn.register(self.writeMsgBox,"writeMsgBox")	
-	self.conn.register(self.setNumItems,"setNumItems")	
-	self.dialog.exec_()
+        self.setupUi()
+        self.dialog=init.initform(self)
+        QtCore.QObject.connect(self.dialog.ui.PB_login,QtCore.SIGNAL("clicked()"),self.login)
+        QtCore.QObject.connect(self.dialog.ui.PB_exit,QtCore.SIGNAL("clicked()"),self.queryExit)
+        QtCore.QObject.connect(self.extension, SIGNAL ('openUrlRequest (const KUrl&, const KParts::OpenUrlArguments&, const KParts::BrowserArguments&)'), self.changePage)
+        self.conn=connector.Connector()
+        self.conn.register(self.writeMsgBox,"writeMsgBox")
+        self.conn.register(self.setNumItems,"setNumItems")
+        self.dialog.exec_()
     def changePage(self, url, args):
-	myurl = str(KUrl(url).prettyUrl().toUtf8())
-	#if it is an external link, we feed id directly to KHTMLpart
-	#it it is not, we do a workaround to inject our headers
-	if myurl.find("http://"+config.language+"."+config.project+".org/") == -1:
-	    	self.visor.openUrl(KUrl(url))
-	else:
-		headers = { 'User-Agent' : config.useragent, 
-			'Cookie': self.dv.lm.cookies() }
-		#convert relative links to absolute
-		if myurl[0:8]=="file:///":
-			myurl="href=\"http://"+config.language+"."+config.project+".org/"+myurl[7:]
-		try:
-			response = urllib2.urlopen(urllib2.Request(myurl, None, headers))
-			html = response.read()
-			html=re_local.sub("href=\"http://"+config.language+"."+config.project+".org/",html)
-			html=re_local1.sub("href='http://"+config.language+"."+config.project+".org/",html)
+        myurl = str(KUrl(url).prettyUrl().toUtf8())
+        #if it is an external link, we feed id directly to KHTMLpart
+        #it it is not, we do a workaround to inject our headers
+        if myurl.find("http://"+config.language+"."+config.project+".org/") == -1:
+            self.visor.openUrl(KUrl(url))
+        else:
+            headers = { 'User-Agent' : config.useragent, 
+                'Cookie': self.dv.lm.cookies() }
+        #convert relative links to absolute
+        if myurl[0:8]=="file:///":
+            myurl="href=\"http://"+config.language+"."+config.project+".org/"+myurl[7:]
+        try:
+            response = urllib2.urlopen(urllib2.Request(myurl, None, headers))
+            html = response.read()
+            html=re_local.sub("href=\"http://"+config.language+"."+config.project+".org/",html)
+            html=re_local1.sub("href='http://"+config.language+"."+config.project+".org/",html)
 
-			html=re_src.sub("src=\"http://"+config.language+"."+config.project+".org/",html)
-			html=re_action.sub("action=\"http://"+config.language+"."+config.project+".org/",html)
-			self.visor.begin()
-			self.visor.write(html)
-			self.visor.end()
-		except:
-			self.writeMsgBox("Unable to open link")
+            html=re_src.sub("src=\"http://"+config.language+"."+config.project+".org/",html)
+            html=re_action.sub("action=\"http://"+config.language+"."+config.project+".org/",html)
+            self.visor.begin()
+            self.visor.write(html)
+            self.visor.end()
+        except:
+            self.writeMsgBox("Unable to open link")
 
     def connect(self):
-	#connections
-	QtCore.QObject.connect(self.TB_diff_next,QtCore.SIGNAL("clicked()"),self.dv.viewDiff)
-	QtCore.QObject.connect(self.TB_diff_revert,QtCore.SIGNAL("clicked()"),self.dv.revert)    
-	QtCore.QObject.connect(self.TB_user_whitelist,QtCore.SIGNAL("clicked()"),self.dv.addWhitelist)
-	
-    def login(self):
-	username = self.dialog.ui.LE_username.text()
-	password = self.dialog.ui.LE_password.text()
-	self.dialog.ui.Result.setText("Logging as "+username)
-	self.dv=deliverer.Dv(self.visor,self.conn)
-	if self.dv.login(username,password):
-		self.show()
-		self.dialog.hide()
-		self.connect()
-		self.dv.startbot()
-		self.writeMsgBox("Connecting irc bot")
+        #connections
+        QtCore.QObject.connect(self.TB_diff_next,QtCore.SIGNAL("clicked()"),self.dv.viewDiff)
+        QtCore.QObject.connect(self.TB_diff_revert,QtCore.SIGNAL("clicked()"),self.dv.revert)    
+        QtCore.QObject.connect(self.TB_user_whitelist,QtCore.SIGNAL("clicked()"),self.dv.addWhitelist)
 
-	else :
-	    self.dialog.ui.Result.setText("Login failed")
+    def login(self):
+        username = self.dialog.ui.LE_username.text()
+        password = self.dialog.ui.LE_password.text()
+        self.dialog.ui.Result.setText("Logging as "+username)
+        self.dv=deliverer.Dv(self.visor,self.conn)
+        if self.dv.login(username,password):
+            self.show()
+            self.dialog.hide()
+            self.connect()
+            self.dv.startbot()
+            self.writeMsgBox("Connecting irc bot")
+
+        else :
+            self.dialog.ui.Result.setText("Login failed")
 
     def writeMsgBox(self,msg):
-	self.msgBox.insertItem(0,msg)
+        self.msgBox.insertItem(0,msg)
     def setNumItems(self,num):
-	self.numitems.setText(QtGui.QApplication.translate("mainwindow", "Events in queue: ", None, QtGui.QApplication.UnicodeUTF8)+repr(num))
-#	self.numItems.setText("Elements in queue: "+repr(num))
+        self.numitems.setText(QtGui.QApplication.translate("mainwindow", "Events in queue: ", None, QtGui.QApplication.UnicodeUTF8)+repr(num))
+    #self.numItems.setText("Elements in queue: "+repr(num))
     def queryExit(self):
-	#// this slot is invoked in addition when the *last* window is going
-	#// to be closed. We could do some final cleanup here.
-	sys.exit()
-	return TRUE #// accept
+        #// this slot is invoked in addition when the *last* window is going
+        #// to be closed. We could do some final cleanup here.
+        sys.exit()
+        return TRUE #// accept
 
 
 appName     = "Chuggle"
@@ -591,7 +592,7 @@ homePage    = "es.wikipedia.org/wiki/User:Chabacano"
 bugEmail    = "chabawiki@gmail.com"
 
 aboutData   = KAboutData (appName, catalog, programName, version, description,
-			license, copyright, text, homePage, bugEmail)
+                license, copyright, text, homePage, bugEmail)
 
 
 KCmdLineArgs.init (sys.argv, aboutData)
