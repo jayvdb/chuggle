@@ -208,6 +208,7 @@ class LoginManager:
     def cookies(self):
 	f = open("login-data")
         cookies = '; '.join([x.strip() for x in f.readlines()])
+        print cookies
         f.close()
 	#print cookies
 	return cookies
