@@ -94,8 +94,7 @@ def postData(address, data,
         response object and data is a Unicode string containing the
         body of the response.
         """
-
-	conn = httplib.HTTPConnection("es.wikipedia.org")
+        conn = httplib.HTTPConnection("es.wikipedia.org")
 
         conn.putrequest('POST', address)
         conn.putheader('Content-Length', str(len(data)))
@@ -119,7 +118,7 @@ def postData(address, data,
             # Blub.
             conn.close()
             conn.connect()
-	    print "error in Post"
+        print "error in Post"
 
         data = response.read()
 
@@ -140,11 +139,11 @@ def postData(address, data,
 
 class LoginManager:
     def __init__(self, password = None, site = None):
-	self.site=config.site
-	try:
-       		self.username = config.username
-	except:
-		raise excepts.NoUsername(u'ERROR: Username is undefined.\nPlease add a line in config.py with the form:\nusername=\'myUsername\'')
+        self.site=config.site
+        try:
+            self.username = config.username
+        except:
+            raise excepts.NoUsername(u'ERROR: Username is undefined.\nPlease add a line in config.py with the form:\nusername=\'myUsername\'')
         self.password = config.password
 
     def getCookie(self, remember=True):
@@ -160,7 +159,7 @@ class LoginManager:
             'lgname': self.username.toUtf8(),
             'lgpassword': self.password.toUtf8(),
         }
-	address = "http://"+config.language+"."+config.project+".org/w/api.php"
+        address = "http://"+config.language+"."+config.project+".org/w/api.php"
         
         response, data = postData(address, urlEncode(predata))
         Reat=re.compile(': (.*?);')
@@ -180,13 +179,13 @@ class LoginManager:
         
         if got_token and got_user:
             return "\n".join(L)
-	else:
-	    captchaR = re.compile('<input type="hidden" name="wpCaptchaId" id="wpCaptchaId" value="(?P<id>\d+)" />')
+        else:
+            captchaR = re.compile('<input type="hidden" name="wpCaptchaId" id="wpCaptchaId" value="(?P<id>\d+)" />')
             match = captchaR.search(data)
             if match:
                 id = match.group('id')
                 if not config.solve_captcha:
-	    		print "Captcha error"
+                    print "Captcha error"
                 url = self.site.protocol() + '://' + self.site.hostname() + self.site.captcha_image_address(id)
                 answer = ui.askForCaptcha(url)
                 return self.getCookie(remember = remember, captchaId = id, captchaAnswer = answer)
@@ -206,17 +205,15 @@ class LoginManager:
         f.close()
 
     def cookies(self):
-	f = open("login-data")
+        f = open("login-data")
         cookies = '; '.join([x.strip() for x in f.readlines()])
-        print cookies
         f.close()
-	#print cookies
-	return cookies
+        return cookies
 
     def login(self, username, password, retry = False):
         #self.password = self.password.encode(self.site.encoding())
-	self.password=password
-	self.username=username
+        self.password=password
+        self.username=username
         ui.output(u"Logging in as %s\n" % (self.username))
         cookiedata = self.getCookie()
         if cookiedata:

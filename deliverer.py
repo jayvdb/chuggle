@@ -27,27 +27,34 @@ class Dv:
         self.title=""
         self.content=""
         self.currevent=""
+        self.event=""
     def login(self,username,password):
         return self.lm.login(username,password)
 
     def startbot(self):
         thread.start_new_thread(self.bot.start,())
 
-    def revert(self):
-        print "revert!"
-        revertsearch=re_revert.search(self.content)
-        #TODO: Check if revert link exists
-        reverttemp=re_amp.sub("&",revertsearch.group(1))
-        revertlink=reverttemp
-        headers = { 'User-Agent' : config.useragent, 
-            'Cookie': self.lm.cookies() }
-        try:
-            response = urllib2.urlopen(urllib2.Request(revertlink, None, headers))
-        except:
-            print "Error reverting"
+    def rollback(self):
+        print "rollback!"
+        revertsearch = re_revert.search(self.content)
+        #Check if rollback link exists
+        if (revertsearch):
+            reverttemp = re_amp.sub("&",revertsearch.group(1))
+            rollbacklink = reverttemp
+            headers = { 'User-Agent' : config.useragent, 
+                'Cookie': self.lm.cookies() }
+            try:
+                response = urllib2.urlopen(urllib2.Request(rollbacklink, None, headers))
+                self.conn.sendSignal("writeMsgBox", "edit by "+self.event.user.decode('utf-8')+ " in "+self.event.page.decode('utf-8')+" reverted")
+                #Go to next diff
+                self.viewDiff()
+
+            except:
+                print "Error reverting"
 
     def viewDiff(self):
-        event=self.em.get()
+        event = self.em.get()
+        self.event = event
         if event:
             if event.type == "edit":
                 self.currevent=event
@@ -57,6 +64,7 @@ class Dv:
                     self.visor.begin()
                     self.visor.write(event.diffhtml)
                     self.visor.end()
+                    self.conn.sendSignal("writeMsgBox", "edit in "+self.event.page.decode('utf-8'))
                 except:
                     print "Error showing diff"
                     print event.diffhtml
